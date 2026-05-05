@@ -1,0 +1,85 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-toolstem"
+version = "0.1.0"
+description = "LangChain tools wrapping Toolstem MCP servers (Finance + SEC EDGAR) with x402 USDC micropayments"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Toolstem", email = "dev@toolstem.com" },
+]
+keywords = [
+    "langchain",
+    "mcp",
+    "financial-data",
+    "sec-edgar",
+    "ai-agent",
+    "x402",
+    "micropayments",
+    "toolstem",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Office/Business :: Financial",
+]
+
+dependencies = [
+    "langchain-core>=0.3.0",
+    "mcp>=1.0.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+x402 = [
+    "x402[evm,httpx]>=2.0.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-httpx>=0.30.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10",
+]
+all = [
+    "langchain-toolstem[x402,dev]",
+]
+
+[project.urls]
+Homepage = "https://toolstem.com"
+Repository = "https://github.com/toolstem/langchain-toolstem-python"
+Documentation = "https://github.com/toolstem/langchain-toolstem-python#readme"
+"TypeScript Sibling" = "https://github.com/toolstem/langchain-toolstem"
+"Issue Tracker" = "https://github.com/toolstem/langchain-toolstem-python/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/langchain_toolstem"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
